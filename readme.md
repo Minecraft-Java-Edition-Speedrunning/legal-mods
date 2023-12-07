@@ -32,7 +32,11 @@ Accessibility mods are also conditional, please read the section below and also 
 
 ## Accessibility Mods
 
-An extra directory in the repository is used to host accessibility mods (`accessibility-mods`). These mods are not legal to use unless you have explicit permission from the speedrun.com/mc moderation team.
+Accessibility mods are not legal to use unless you have explicit permission from the speedrun.com/mc moderation team.
+
+Accessibility mods:
+- `motiono`
+- `extra-options`
 
 ## Internal Mod Files
 
