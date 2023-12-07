@@ -15,6 +15,21 @@ Sometimes there will be missing Minecraft versions for a mod. If you really need
 > If there is no listed jar for a specific MC subversion, a jar from within the same major MC version can be used if it functions correctly.
 > For example, if Lithium for MC 1.15.2 works for MC 1.15.1, it may be used for MC 1.15.1, but Lithium for MC 1.16.5 may not be used for MC 1.17 since it falls under a different major version (1.16 vs 1.17).
 
+## Conditional Mods
+
+Certain mods are only allowed under certain conditions.
+
+Mac OS only:
+- `sodiummac`
+
+Set seed categories only:
+- `set-spawn`
+- `chunkcacher`
+
+For developers, these conditions can be found in the `conditional-mods.json` file found in the root of this repository.
+
+Accessibility mods are also conditional, please read the section below and also the speedrun.com/mc rules.
+
 ## Accessibility Mods
 
 An extra directory in the repository is used to host accessibility mods (`accessibility-mods`). These mods are not legal to use unless you have explicit permission from the speedrun.com/mc moderation team.
