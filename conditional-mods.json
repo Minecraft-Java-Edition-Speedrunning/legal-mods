@@ -1,12 +1,12 @@
 {
-    "ssg-only":[
+    "ssg-only": [
         "set-spawn",
         "chunkcacher"
     ],
-    "mac-only":[
+    "mac-only": [
         "sodiummac"
     ],
-    "accessibility":[
+    "accessibility": [
         "extra-options",
         "motiono"
     ]
