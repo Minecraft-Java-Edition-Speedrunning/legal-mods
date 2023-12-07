@@ -7,6 +7,11 @@ This repository acts as a central authority for legal mods for the Minecraft Jav
 
 Each mod has its own directory, and in that directory are more directories named after the legal Minecraft version ranges. For example, Sodium for 1.16.5 can be found in `legal-mods/sodium/1.16.2-1.16.5/`.
 
+Possible directory formats:
+- `1.x.x` - The mod is legal and works for this specific version.
+- `1.x.x-1.x.x` - The mod is legal and works for all versions in this range (inclusive).
+- `1.x.x+` - The mod is legal and works for this specific version and is legal for all Minecraft versions released after the specified version given that it functions correctly.
+
 Sometimes there will be missing Minecraft versions for a mod. If you really need a mod for a specific Minecraft version that isn't available in this repository, please read the following:
 > If there is no listed jar for a specific MC subversion, a jar from within the same major MC version can be used if it functions correctly.
 > For example, if Lithium for MC 1.15.2 works for MC 1.15.1, it may be used for MC 1.15.1, but Lithium for MC 1.16.5 may not be used for MC 1.17 since it falls under a different major version (1.16 vs 1.17).
