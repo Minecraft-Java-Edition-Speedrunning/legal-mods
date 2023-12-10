@@ -1,6 +1,6 @@
 # MCSR Legal Mods
 
-This repository acts as a central authority for legal mods for the Minecraft Java Edition Speedrunning community. This means runs can be done using the mods found in this repository and be submitted and verified on https://speedrun.com/mc & https://speedrun.com/mcce.
+This repository acts as a central authority for legal mods for the Minecraft Java Edition Speedrunning community. This means runs can be done using the mods found in this repository and be submitted and verified on https://speedrun.com/mc, https://speedrun.com/mcce, & https://www.speedrun.com/mc_juice.
 
 ## What mods are legal for what Minecraft versions?
 
