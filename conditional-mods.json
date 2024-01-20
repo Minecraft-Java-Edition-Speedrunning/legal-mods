@@ -1,6 +1,6 @@
 {
     "ssg-only": [
-        "set-spawn",
+        "setspawnmod",
         "chunkcacher"
     ],
     "mac-only": [
