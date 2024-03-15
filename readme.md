@@ -23,7 +23,7 @@ Mac OS only:
 - `sodiummac`
 
 Set seed categories only:
-- `set-spawn`
+- `setspawnmod`
 - `chunkcacher`
 
 For developers, these conditions can be found in the `conditional-mods.json` file found in the root of this repository.
