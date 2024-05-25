@@ -8,7 +8,6 @@
         "sodiummac"
     ],
     "accessibility": [
-        "extra-options",
-        "motiono"
+        "extra-options"
     ]
 }
