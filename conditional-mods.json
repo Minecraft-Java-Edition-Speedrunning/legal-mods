@@ -6,9 +6,5 @@
     "mac-only": [
         "retino",
         "sodiummac"
-    ],
-    "accessibility": [
-        "extra-options",
-        "motiono"
     ]
 }

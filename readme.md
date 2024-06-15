@@ -28,16 +28,6 @@ Set seed categories only:
 
 For developers, these conditions can be found in the `conditional-mods.json` file found in the root of this repository.
 
-Accessibility mods are also conditional, please read the section below and also the speedrun.com/mc rules.
-
-## Accessibility Mods
-
-Accessibility mods are not legal to use unless you have explicit permission from the speedrun.com/mc moderation team.
-
-Accessibility mods:
-- `motiono`
-- `extra-options`
-
 ## Internal Mod Files
 
 Most mods included in this repository are mods made by the community, these mods are included in this repository as .jar files. For example: `legal-mods/sodium/1.16.2-1.16.5/sodium-1.16.5-v1.jar`.
