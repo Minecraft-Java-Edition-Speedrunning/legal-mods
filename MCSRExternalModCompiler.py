@@ -89,7 +89,7 @@ def cleanse_mod_version(version_string: str, intended_version_range: list[str] =
 
 
 def version_to_int(version_string: str) -> int:
-    all_numbers = [int(i) for i in re.findall("\d+", version_string)]
+    all_numbers = [int(i) for i in re.findall(r"\d+", version_string)]
     while len(all_numbers) < 4:
         all_numbers.append(0)
     total = 0
