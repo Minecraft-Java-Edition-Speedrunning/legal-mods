@@ -114,10 +114,6 @@ def compile_folder_for_modrinth_mod(project_name: str, modid: str = None, releas
         if "fabric" not in v.loaders or (release_only and v.versionType != "release"):
             continue
 
-        # TODO: remove, little sodium hack for the moment
-        if modid == "sodium" and v.versionType == "beta":
-            continue
-
         url = v.files[0]["url"]
         hash = v.files[0]["hashes"]["sha512"]
         vdata = {
