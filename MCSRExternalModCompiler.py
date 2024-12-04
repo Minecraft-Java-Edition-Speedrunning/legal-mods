@@ -99,7 +99,7 @@ def version_to_int(version_string: str) -> int:
     return total
 
 
-def compile_folder_for_modrinth_mod(project_name: str, modid: str = None):
+def compile_folder_for_modrinth_mod(project_name: str, modid: str = None, release_only: bool = False):
     if modid is None:
         modid = project_name
 
@@ -109,7 +109,11 @@ def compile_folder_for_modrinth_mod(project_name: str, modid: str = None):
 
     versions: list[ModrinthVersions.ModrinthVersion] = ModrinthVersions.getVersions(
         project, project.versions)
+
     for v in versions:
+        if "fabric" not in v.loaders or (release_only and v.versionType != "release"):
+            continue
+
         url = v.files[0]["url"]
         hash = v.files[0]["hashes"]["sha512"]
         vdata = {
@@ -172,4 +176,7 @@ if __name__ == "__main__":
     modid = None
     if len(sys.argv) >= 3:
         modid = sys.argv[2]
-    compile_folder_for_modrinth_mod(project_name, modid)
+    release_only = False
+    if len(sys.argv) >= 4 and (sys.argv[3] == "--release-only" or sys.argv[3] == "-r"):
+        release_only = True
+    compile_folder_for_modrinth_mod(project_name, modid, release_only)
