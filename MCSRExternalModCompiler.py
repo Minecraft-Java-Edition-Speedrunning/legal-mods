@@ -107,8 +107,13 @@ def compile_folder_for_modrinth_mod(project_name: str, modid: str = None, releas
 
     all_files_per_mc_version = {}
 
-    versions: list[ModrinthVersions.ModrinthVersion] = ModrinthVersions.getVersions(
-        project, project.versions)
+    # https://discord.com/channels/734077874708938864/734077874708938867/1319083641955029084
+    versions: list[ModrinthVersions.ModrinthVersion] = []
+    for project_id in project.versions:
+        try:
+            versions.append(ModrinthVersions.ModrinthVersion(project, project_id))
+        except json.JSONDecodeError:
+            pass
 
     for v in versions:
         if "fabric" not in v.loaders or (release_only and v.versionType != "release"):
