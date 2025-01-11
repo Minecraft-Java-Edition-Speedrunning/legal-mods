@@ -1,10 +1,6 @@
 {
-    "ssg-only": [
-        "chunkcacher",
-        "setspawnmod"
-    ],
-    "mac-only": [
-        "retino",
-        "sodiummac"
-    ]
+  "ssg-only": [
+    "chunkcacher",
+    "setspawnmod"
+  ]
 }

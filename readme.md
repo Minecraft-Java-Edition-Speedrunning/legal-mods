@@ -27,11 +27,6 @@ Sometimes there will be missing Minecraft versions for a mod. If you really need
 
 Certain mods are only allowed under certain conditions.
 
-Mac OS only:
-
-- `sodiummac`
-- `retino`
-
 Set seed categories only:
 
 - `setspawnmod`
