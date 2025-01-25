@@ -1,0 +1,25 @@
+name: update legal builds
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - legal-mods
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+      - name: build
+        run: |
+          python get_hashes.py
+          git add legal-builds.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "update hashes"
+          git push origin ${{ github.ref_name }}
