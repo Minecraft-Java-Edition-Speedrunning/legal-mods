@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - legal-mods
+      - legal-mods/**
 
 permissions:
   contents: write
@@ -18,7 +18,7 @@ jobs:
       - name: build
         run: |
           python get_hashes.py
-          git add legal-builds.txt
+          git add legal-builds.csv
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "update hashes"
