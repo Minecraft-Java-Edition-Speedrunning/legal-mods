@@ -48,6 +48,6 @@ for path, _, file in os.walk("legal-mods"):
         curr.append([modid, file, time, date, hash])
 
 with open("legal-builds.csv", "w", newline="") as f:
-    writer = csv.writer(f)
+    writer = csv.writer(f, lineterminator="\n")
     writer.writerow(fields)
     writer.writerows(curr)
