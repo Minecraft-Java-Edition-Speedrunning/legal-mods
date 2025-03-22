@@ -21,7 +21,7 @@ def hash_entry(modid, hash) -> typing.Optional[list[str]]:
 for path, _, file in os.walk("legal-mods"):
     if len(file) == 0:
         continue
-    assert len(file) == 1 and path.count("/") == 2
+    assert len(file) == 1 and path.count(os.path.sep) == 2
     file = file[0]
     if file.endswith(".json"):
         with open(os.path.join(path, file), "r") as f:
@@ -32,7 +32,7 @@ for path, _, file in os.walk("legal-mods"):
         with open(os.path.join(path, file), "rb") as f:
             hash = hashlib.sha512(f.read()).hexdigest()
 
-    modid = path[path.index("/") + 1: path.rindex("/")]
+    modid = path[path.index(os.path.sep) + 1: path.rindex(os.path.sep)]
     curr_entry = hash_entry(modid, hash)
     if curr_entry is not None:
         if curr_entry[1] != file:
@@ -47,7 +47,7 @@ for path, _, file in os.walk("legal-mods"):
         date = subprocess.check_output(["git", "log", "--max-count=1", "--format=%cd", "--date=format:%Y-%m-%d"]).decode().strip()
         curr.append([modid, file, time, date, hash])
 
-with open("legal-builds.csv", "w") as f:
+with open("legal-builds.csv", "w", newline="") as f:
     writer = csv.writer(f)
     writer.writerow(fields)
     writer.writerows(curr)
