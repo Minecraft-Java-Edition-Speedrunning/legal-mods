@@ -26,7 +26,6 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: "update hashes"
           title: "Update legal builds"
           body: "Automated update of legal builds from get_hashes.py"
           branch: "legal-builds-update"
