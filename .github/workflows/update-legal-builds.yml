@@ -1,25 +1,31 @@
 name: update legal builds
+
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - legal-mods/**
+  workflow_dispatch:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
-      - name: build
+
+      - name: Run update script and commit changes
         run: |
           python get_hashes.py
           git add legal-builds.csv
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "update hashes"
-          git push origin ${{ github.ref_name }}
+          # Allow the commit to fail if there are no changes
+          git commit -m "update hashes" || echo "No changes to commit"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          title: "Update legal builds"
+          body: "Automated update of legal builds from get_hashes.py"
+          branch: "legal-builds-update"
