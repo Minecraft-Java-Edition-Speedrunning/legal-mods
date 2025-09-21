@@ -1,55 +1,74 @@
-# For Runners
+# **This webpage is not intended for use by runners** 
+### The user-facing interface for downloading legal mods is at <https://mods.tildejustin.dev>
 
-Runners are not intended to be on GitHub to get mods. If you cannot find a mod on <https://mods.tildejustin.dev/>, it isn't legal. If a newer mod became legal, the best way to get it would be from <https://mods.tildejustin.dev/> or [ModCheck](https://github.com/tildejustin/modcheck/releases).
+If you cannot find a mod on that website, **it is not legal.** If a newer mod became legal, the best way to get it would be from the above website or [ModCheck](https://github.com/tildejustin/modcheck/releases).
 
-<https://github.com/Minecraft-Java-Edition-Speedrunning/legal-mods> is the true source of legal mods, and <https://mods.tildejustin.dev/> will always reflect that. Any other GitHub page that is called `legal-mods` is what's called a "fork", a "fork" is just a copy of the original `legal-mods` made by another developer so that they can make and then request changes to the original `legal-mods`. If the URL of the page you are looking at is not <https://github.com/Minecraft-Java-Edition-Speedrunning/legal-mods>, then you are not looking at the official `legal-mods` repository page. Additionally, URLs that start with <https://github.com/Minecraft-Java-Edition-Speedrunning/legal-mods> still might not reference mods that are legal, and may reference external commits from pull requests or branches other than `main`, and mods found through these URLs would not yet be legal, or might never be legal. Runners are not expected to be able to understand and navigate these GitHub features, so the easiest way to tell if a mod is legal is if it appears on <https://mods.tildejustin.dev/>.
+This webpage, <https://github.com/Minecraft-Java-Edition-Speedrunning/legal-mods>, is the true source of legal mods, and <https://mods.tildejustin.dev/> will always reflect that. Any other GitHub page that is called `legal-mods` is what's called a "fork", a "fork" is just a copy of the original `legal-mods` made by another developer so that they can make and then request changes to the original `legal-mods`. If the URL of the page you are looking at is not <https://github.com/Minecraft-Java-Edition-Speedrunning/legal-mods>, then you are not looking at the official `legal-mods` repository page. Additionally, URLs that start with <https://github.com/Minecraft-Java-Edition-Speedrunning/legal-mods> still might not reference mods that are legal, and may reference external commits from pull requests or branches other than `main`, and mods found through these URLs would not yet be legal, or might never be legal. Runners are not expected to be able to understand and navigate these GitHub features, so the easiest way to tell if a mod is legal is if it appears on <https://mods.tildejustin.dev/>.
 
 # MCSR Legal Mods
 
-This repository acts as a central authority for legal mods for the Minecraft Java Edition Speedrunning community. This means runs can be done using the mods found in this repository and be submitted and verified on https://speedrun.com/mc & https://speedrun.com/mcce.
+This repository acts as the central authority for legal mods for the Minecraft Java Edition Speedrunning community. Runs done with mods found in this repository are eligible for verification on https://speedrun.com/mc and https://speedrun.com/mcce. Mods may have additional rules associated with their use, please familiarize yourself with [the rules](https://www.minecraftspeedrunning.com/public-resources/rules) before submitting a run.
 
-## What mods are legal for what Minecraft versions?
+## Legalization Process
+See [contributing.md](contributing.md)
 
-Each mod has its own directory, and in that directory are more directories named after the legal Minecraft version ranges. For example, Sodium for 1.16.5 can be found in `legal-mods/sodium/1.16.2-1.16.5/`.
+## Directory Structure
 
-Possible directory formats:
+### [`legal-mods/`](legal-mods/)
+
+This directory contains the most up-to-date build of every legal mod for every Minecraft version it supports and is allowed for. It is intended for encoding the supported and allowed Minecraft ranges for allowed builds of mods as well as hosting the binaries of "internal mods" for tools to download.
+
+Inside, there is a directory for each mod by Mod ID and inside each of those are directories for each build of the mod by supported Minecraft version range. For example, Sodium for 1.16.5 can be found in `legal-mods/sodium/1.16.5/`.
+
+Note that prior builds are often still allowed after an update. These are still stored in the Git history, if for some reason they are necessary. Tracking which past builds are legal is the purpose of `legal-builds.csv`.
+
+Possible version range formats:
 
 - `1.x.x` - The mod is legal and works for this specific version.
 - `1.x.x-1.x.x` - The mod is legal and works for all versions in this range (inclusive).
 - `1.x.x+` - The mod is legal and works for this specific version and is legal for all Minecraft versions released after the specified version given that it functions correctly.
+
+Each version directory contains either a jar file (an internal mod file) or a JSON link file (an external mod file).
+
+### [`conditional-mods.json`](conditional-mods.json)
+
+Certain mods are only allowed under certain conditions. Currently, these conditions are:
+
+`ssg-only`: Set Seed categories only
+
+This file stores which conditions correspond to which mod, by Mod ID.
+
+### [`legal-builds.csv`](legal-builds.csv)
+
+This file defines all currently legal builds of all currently legal mods, including builds that have been replaced in `legal-mods/` without being made illegal. It is generated by [`get_hashes.py`](get_hashes.py) and contains additional information that could be of use by tools. Formal illegalization consists of removing entries from this file.
+
+## Unsupported Versions Policy
 
 Sometimes there will be missing Minecraft versions for a mod. If you really need a mod for a specific Minecraft version that isn't available in this repository, please read the following:
 
 > If there is no listed jar for a specific MC subversion, a jar from within the same major MC version can be used if it functions correctly.
 > For example, if Lithium for MC 1.15.2 works for MC 1.15.1, it may be used for MC 1.15.1, but Lithium for MC 1.16.5 may not be used for MC 1.17 since it falls under a different major version (1.16 vs 1.17).
 
-## Conditional Mods
+A Dependency Override may be necessary to use a mod for a version it is not declared as compatible with. Please see <https://fabricmc.net/wiki/tutorial:dependency_overrides> for more information.
 
-Certain mods are only allowed under certain conditions.
+## Types of Mod Files
 
-Set seed categories only:
-
-- `setspawnmod`
-- `chunkcacher`
-
-For developers, these conditions can be found in the `conditional-mods.json` file found in the root of this repository.
-
-## Internal Mod Files
+### Internal Mod Files
 
 Most mods included in this repository are mods made by the community, these mods are included in this repository as .jar files. For example: `legal-mods/sodium/1.16.2-1.16.5/sodium-1.16.5-v1.jar`.
 
-## External Mod Files
+### External Mod Files
 
 This repository contains "link files", which are files with the `.json` extension instead of `.jar` extension.
 
-Link files are a solution to the problem of including jars from developers that did not intend their mods to be used for speedrunning.
+Link files are a solution to the problem of including jars from developers that did not intend their mods to be used for speedrunning or who would like to centralize distribution of their mods on a third-party platform like Modrinth.
 
-Link files are json formatted files containing two values, the link, and the hash.
+Link files are JSON formatted files containing two values: the link, and the hash.
 
-- The `link` value is a direct download link, usually a modrinth cdn link.
-- The `hash` value is a sha512 hash of the file provided by modrinth.
+- The `link` value is a direct download link, usually a Modrinth CDN link.
+- The `hash` value is a SHA512 hash of the file provided by Modrinth.
 
-The purpose of the link file is to provide a way for tools, such as modcheck, to find legal versions of mods not directly stored in the repository and still deliver the mods to the users, while also doing so securely by being able to check the sha512 hash of the downloaded file.
+The purpose of the link file is to provide a way for tools, such as ModCheck, to find legal versions of mods not directly stored in the repository and still deliver the mods to the users, while also doing so securely by being able to check the SHA512 hash of the downloaded file.
 
 Example (LazyDFU):
 
@@ -60,4 +79,8 @@ Example (LazyDFU):
 }
 ```
 
-A python script is included in this repository (MCSRExternalModCompiler.py) to help generate these link files. Usage still involves manual intervention since it will generate link files for versions that are already covered by internal mods, and modrinth may not report the correct version range.
+A python script is included in this repository ([`MCSRExternalModCompiler.py`](MCSRExternalModCompiler.py)) to help generate these link files. Usage still involves manual intervention since it will generate link files for versions that are already covered by internal mods, and Modrinth may not report the correct version range.
+
+## Metadata
+
+Metadata generated from this repository for use by tools is stored at https://github.com/tildejustin/mcsr-meta. This metadata is what powers the mod website and ModCheck, and is used by [MCSR Launcher](https://github.com/MCSRLauncher/Launcher) and the Discord bot [Background Pingu](https://github.com/maskersss/background-pingu-v2). It documents useful information not stored here such as incompatibilities, recommended mods, and extra conditional categories such as "rsg-only" and "mac-only" that are not directly related to legality but are useful for tools. Updating it is a step of the legalization process, which makes it a trustworthy source for legality information.
