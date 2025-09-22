@@ -45,3 +45,15 @@ Generally we work via a maintainer model, where most updates are advocated for b
 If original author is not active or not interested in hosting your change then you can choose to use an org repo or personal repo. Mods can even be split between an org repo and personal repo depending on if someone wants to re-adopt an org repo or only work on ports for some set of versions or similar.
 
 As a final reminder, contact with the staff team is encouraged early and often. We don't want someone to work hard on a mod or update that has no chance of being legalized, or have to request significant changes. Do not be afraid to come to us with just an intention, we are more than happy to work with you.
+
+## Legalization process
+
+Final legalization, after prs are approved by Tech Advisors and the concept and implementation is signed off on, is often done in waves for convenience's sake. When it's time for a mod wave, a couple of things have to happen.
+
+1) Draft and get final approval for a mini-changelog - anyone, typically a Tech Advisor + multiple Leaderboard Mods
+2) Merge associated PRs - staff, typically a Tech Advisor
+3) Update legal-builds - staff, typically a Tech Advisor
+4) Update metadata - tildejustin or Duncan
+5) Distribute changelogs in the official Discord and https://speedrun.com/mc - Leaderboard Mod
+
+Additionally, at some point a staff member must update releases on org repos and archives for non org repos, however this can be done asynchronously and doesn't have a strict timeline. Legality is established after step 3 but in the interest of fairness the other steps must happen reasonably quickly after to avoid an information asymmetry in the community, which is perceived as unfair.
