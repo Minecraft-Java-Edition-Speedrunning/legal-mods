@@ -33,59 +33,10 @@ import re
 import shutil
 from modrinth import Projects as ModrinthProjects
 from modrinth import Versions as ModrinthVersions
+from datetime import datetime, timezone
 
 MC_VERSION_PATTERN = r"[mM][cC] ?1\.\d\d?(?:\.\d\d?)?"
 GENERAL_VERSION_PATTERN = r"\d+\.\d+(?:\.\d+(?:\.\d+)?)?"
-
-
-def cleanse_mod_version(version_string: str, intended_version_range: list[str] = []) -> str:
-    # Would love for this insane bullshit function to be improved
-    # Example: mc1.16.5-0.2.0 -> 0.2.0
-
-    original_version_string = version_string
-
-    # Cut off anything after a "+"
-    version_string = version_string.split("+")[0]
-
-    # Remove anything matching a minecraft version pattern prefixed with "mc" (such as "mc1.15")
-    mc_ver_match = re.search(MC_VERSION_PATTERN, version_string)
-    if mc_ver_match:
-        version_string = version_string.replace(mc_ver_match.group(), "")
-
-    # Find all general version matches
-    all_matches = re.findall(GENERAL_VERSION_PATTERN, version_string)
-
-    if len(all_matches) == 1:
-        # Only 1 match = return it
-        return all_matches[0]
-    elif len(all_matches) == 0:
-        # No matches = panic mode
-        # Look for a general version match in the original version string
-        backup_backup_match = re.search(
-            GENERAL_VERSION_PATTERN, original_version_string)
-        # If found, return the match, otherwise just return the original string
-        if backup_backup_match:
-            backup_backup_match.group()
-        return original_version_string
-
-    # We still have more than 1 version match right now, so remove any minecraft versions from intended_versions
-
-    # Remove all mc versions from intended_version_range
-    # This could easily remove the actual mod version, which is what we keep backup_match for
-    for possible_mc_version in intended_version_range:
-        while possible_mc_version in all_matches:
-            all_matches.remove(possible_mc_version)
-
-    if len(all_matches) == 1:
-        # Single match after removing intended mc versions
-        return all_matches[0]
-    elif len(all_matches) == 0:
-        match = re.search(GENERAL_VERSION_PATTERN, original_version_string)
-        if match:
-            return match.group()
-
-    # Still multiple versions or no versions found in all_matches, so just don't cleanse :(
-    return original_version_string
 
 
 def version_to_int(version_string: str) -> int:
@@ -98,16 +49,20 @@ def version_to_int(version_string: str) -> int:
         total += all_numbers[i]
     return total
 
+def iso_to_int(iso_str: str) -> int:
+    return int(datetime.fromisoformat(iso_str.replace("Z","+00:00")).timestamp())
 
 def compile_folder_for_modrinth_mod(project_name: str, modid: str = None, release_only: bool = False):
     if modid is None:
         modid = project_name
 
+    print(f"Compiling for {project_name}")
     project = ModrinthProjects.ModrinthProject(project_name)
 
     all_files_per_mc_version = {}
 
     # https://discord.com/channels/734077874708938864/734077874708938867/1319083641955029084
+    print("Getting versions...")
     versions: list[ModrinthVersions.ModrinthVersion] = []
     for project_id in project.versions:
         try:
@@ -115,6 +70,7 @@ def compile_folder_for_modrinth_mod(project_name: str, modid: str = None, releas
         except json.JSONDecodeError:
             pass
 
+    print("Checking versions...")
     for v in versions:
         if "fabric" not in v.loaders or (release_only and v.versionType != "release"):
             continue
@@ -124,9 +80,9 @@ def compile_folder_for_modrinth_mod(project_name: str, modid: str = None, releas
         vdata = {
             "link": url,
             "hash": hash,
-            "mod_version": cleanse_mod_version(v.versionNumber, v.gameVersions),
             "filename": v.files[0]["filename"],
-            "compatible_versions": v.gameVersions
+            "compatible_versions": v.gameVersions,
+            "date_published": iso_to_int(v.datePublished)
         }
         for game_version in v.gameVersions:
             # Exclude snapshots
@@ -141,7 +97,7 @@ def compile_folder_for_modrinth_mod(project_name: str, modid: str = None, releas
 
     for mc_version, all_files in all_files_per_mc_version.items():
         best_file_per_mc_version[mc_version] = max(
-            all_files, key=lambda x: version_to_int(x["mod_version"]))
+            all_files, key=lambda x: x["date_published"])
 
     mc_version_ranges = sorted(
         best_file_per_mc_version.keys(), key=lambda x: version_to_int(x))
